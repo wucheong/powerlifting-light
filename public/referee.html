@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Referee Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <style>
+    html, body {
+      height: 100%;
+    }
+    body {
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      width: 100vw;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .container {
+      width: 100vw;
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      justify-content: center;
+    }
+    .referee-select-group {
+      background: #181818;
+      border-radius: 1.5em;
+      padding: 1.5em 2em;
+      margin-bottom: 2em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 250px;
+    }
+    .referee-select-label {
+      font-size: 1.2em;
+      margin-bottom: 1em;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+    .radio-row {
+      display: flex;
+      gap: 1.2em;
+    }
+    .radio-label {
+      font-size: 1.1em;
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      cursor: pointer;
+      user-select: none;
+    }
+    input[type="radio"] {
+      accent-color: #fff;
+      width: 1.3em;
+      height: 1.3em;
+    }
+    .lights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2vw;
+      width: 80vw;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .circle-btn {
+      width: 34vw;
+      max-width: 180px;
+      min-width: 90px;
+      height: 34vw;
+      max-height: 180px;
+      min-height: 90px;
+      border-radius: 50%;
+      border: none;
+      outline: none;
+      margin: 0;
+      font-size: 1.7em;
+      font-weight: bold;
+      color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.08s, box-shadow 0.08s;
+      box-shadow: 0 0 16px 2px #111;
+      cursor: pointer;
+      user-select: none;
+    }
+    .circle-btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 0 8px 1px #000;
+    }
+    .btn-white {
+      background: #fff;
+      color: #222;
+      border: 3px solid #bbb;
+    }
+    .btn-red {
+      background: #f00;
+      color: #fff;
+      border: 3px solid #d00;
+    }
+    .btn-yellow {
+      background: #ff0;
+      color: #555;
+      border: 3px solid #cc0;
+    }
+    .btn-blue {
+      background: #00f;
+      color: #fff;
+      border: 3px solid #009;
+    }
+    .selected-referee-title {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: #0ff;
+      margin-bottom: 2em;
+      text-align: center;
+      letter-spacing: 0.04em;
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .lights-grid {
+        gap: 3vw;
+      }
+      .circle-btn {
+        width: 38vw;
+        height: 38vw;
+        min-width: 64px;
+        min-height: 64px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="referee-select-group" id="refereeSelectGroup">
+      <div class="referee-select-label">Select Referee Position</div>
+      <div class="radio-row" id="radioRow">
+        <label class="radio-label">
+          <input type="radio" name="referee" value="0">
+          Left
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="referee" value="1">
+          Center
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="referee" value="2">
+          Right
+        </label>
+      </div>
+    </div>
+    <div class="selected-referee-title" id="selectedRefereeTitle"></div>
+    <div class="lights-grid">
+      <button class="circle-btn btn-white" id="btnWhite" disabled>White</button>
+      <button class="circle-btn btn-red" id="btnRed" disabled>Red</button>
+      <button class="circle-btn btn-yellow" id="btnYellow" disabled>Yellow</button>
+      <button class="circle-btn btn-blue" id="btnBlue" disabled>Blue</button>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/referee.js"></script>
+</body>
+</html>
