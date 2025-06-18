@@ -18,6 +18,7 @@ radioButtons.forEach(radio => {
       selectedRefereeTitle.textContent = `You are the "${refereeNames[selectedReferee]}" Referee`;
       // Enable light buttons
       enableLightButtons(true);
+      socket.emit('refereeJoin', { refereeIndex: selectedReferee });
     }
   });
 });
