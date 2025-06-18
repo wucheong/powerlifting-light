@@ -13,6 +13,16 @@ let timerInterval = null;
 
 app.use(express.static('public'));
 
+// Redirect root to /display
+app.get('/', (req, res) => {
+  res.redirect('/display');
+});
+
+// Route to allow /display, /controller, /referee to serve their respective .html files
+app.get('/:page(display|controller|referee)', (req, res) => {
+  res.sendFile(__dirname + `/public/${req.params.page}.html`);
+});
+
 io.on('connection', socket => {
   // Send current state upon connection
   socket.emit('update', { lights, timer, timerRunning });
@@ -47,6 +57,14 @@ io.on('connection', socket => {
       if (timer <= 10 && timer > 0) io.emit('beep', { type: 'countdown', value: timer });
       io.emit('update', { lights, timer, timerRunning });
     }, 1000);
+  });
+
+  socket.on('pauseTimer', () => {
+    if (timerRunning) {
+      timerRunning = false;
+      clearInterval(timerInterval);
+      io.emit('update', { lights, timer, timerRunning });
+    }
   });
 });
 

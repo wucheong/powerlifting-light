@@ -2,11 +2,71 @@
 <html>
 <head>
   <title>Controller</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+      color: #ffcc00;
+      text-shadow: 2px 2px 8px #000;
+    }
+    .controller-btn {
+      font-size: 2rem;
+      padding: 1.2rem 3rem;
+      margin: 1rem;
+      border: none;
+      border-radius: 1.5rem;
+      background: linear-gradient(90deg, #ffcc00 0%, #ff8800 100%);
+      color: #222;
+      font-weight: bold;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+    .controller-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 32px rgba(255,204,0,0.3);
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .controller-btn { font-size: 1.2rem; padding: 0.8rem 1.5rem; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Controller</h1>
-  <button onclick="resetAll()">Reset Lights & Timer</button>
-  <button onclick="startTimer()">Start Timer</button>
+  <h1>Powerlifting Light Controller</h1>
+  <button class="controller-btn" onclick="resetAll()">Reset Lights & Timer</button>
+  <button class="controller-btn" onclick="startTimer()">Start Timer</button>
+  <button class="controller-btn" onclick="pauseTimer()">Pause Timer</button>
+  
+  <div id="attempt-timers" style="margin-top:3rem; background:#222; border-radius:1.5rem; padding:2rem 1rem; display:inline-block; box-shadow:0 2px 16px rgba(255,204,0,0.1);">
+    <h2 style="color:#ffcc00; margin-bottom:1.5rem;">Attempt Submission Timers</h2>
+    <div style="display:flex; gap:2rem; justify-content:center;">
+      <div>
+        <div id="attempt1-display" style="font-size:2.5rem; color:#fff; margin-bottom:1rem;">60</div>
+        <button class="controller-btn" style="font-size:1.2rem; padding:0.5rem 1.5rem;" onclick="startAttemptTimer(1)">Start 1</button>
+        <button class="controller-btn" style="font-size:1.2rem; padding:0.5rem 1.5rem; background:#888; color:#fff;" onclick="resetAttemptTimer(1)">Reset 1</button>
+      </div>
+      <div>
+        <div id="attempt2-display" style="font-size:2.5rem; color:#fff; margin-bottom:1rem;">60</div>
+        <button class="controller-btn" style="font-size:1.2rem; padding:0.5rem 1.5rem;" onclick="startAttemptTimer(2)">Start 2</button>
+        <button class="controller-btn" style="font-size:1.2rem; padding:0.5rem 1.5rem; background:#888; color:#fff;" onclick="resetAttemptTimer(2)">Reset 2</button>
+      </div>
+    </div>
+  </div>
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/controller.js"></script>
 </body>
